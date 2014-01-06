@@ -1,0 +1,38 @@
+@inherits umbraco.MacroEngines.DynamicNodeContext
+
+@*
+	Model = The current page the macro is executed on
+			@Model.bodyText
+
+	Parameter = collection of parameter values passed from the macro
+			@Paramter.myParam
+
+    Library = utillity library with common methods
+    		@Library.NodeById(1233)
+
+
+  Use as a macro 
+  Create mediaFolderID parameter in macro
+
+*@
+
+@{
+    // Cant use .HasValue on Parameters so use checking to see if String is not Null or empty
+    if (!String.IsNullOrEmpty(Parameter.mediaFolderID))
+    {
+        var MediaFolder = Library.MediaById(Parameter.mediaFolderID);
+        
+        <div class="gallery">
+            <ul>
+                @foreach (var photo in MediaFolder.Children)
+                {
+						      @*
+						      <li><a href="@photo.imageCropper.Find("@name", "1200x800").url" rel="prettyPhoto[pp_gal]"><img src="@photo.imageCropper.Find("@name", "200x130").url" alt="@photo.Name" /></a></li>
+                  <img src="@photo.umbracoFile" alt="@photo.Name" />
+                  *@
+							    <li><a href="/ImageGen.ashx?image=@photo.umbracoFile&height=800&width=800&crop=resize&align=center&constrain=true&pad=false" rel="prettyPhoto[pp_gal]"><img src="/ImageGen.ashx?image=@photo.umbracoFile&height=200&width=200&crop=resize&align=center&constrain=true&pad=false" alt="@photo.Name" /></a></li>
+                }
+            </ul>
+        </div>
+    }
+}
