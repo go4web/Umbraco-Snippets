@@ -1,0 +1,24 @@
+@{
+    var selection = Model.Content.Children().Where("Visible");
+}
+
+@if(selection.Any()){
+	<div class="row">
+		<div class="large-8 columns">					
+			<div class="accordion">
+				<ul>
+				@foreach(var page in selection){                
+					<li>
+						<p class="title">
+							<a href='#' class="head">@Html.Raw(page.GetPropertyValue("fAQQuestion"))</a>
+						</p>
+						<div class="content">
+						  @Html.Raw(page.GetPropertyValue("fAQAnswer"))
+						</div>		
+					</li>		   
+				}                 
+				</ul>             
+			</div>			
+		</div>
+	</div>
+}
