@@ -1,0 +1,34 @@
+@{
+  var language = Model.Content.GetPropertyValue("language", true).ToString();
+}
+
+@if (@language == "da") {
+
+} else {}
+
+<h1>@Html.Raw(Model.Content.GetPropertyValue<string>("pageTitle"))</h1>
+
+@if(Model.Content.GetPropertyValue<bool>("showImportantNotice")) {
+	<div class="panel">
+		<div class="panelBackground light gradient">
+			<div class="row">
+				<div class="large-9 small-8 columns">
+					@Html.Raw(Model.Content.GetPropertyValue<string>("importantNotice"))
+				</div>
+				<div class="large-3 small-4 columns importantIcon">
+					<span aria-hidden="true" class="icon-info"></span>
+				</div>
+			</div>			
+		</div>	
+	</div>
+}
+
+
+@{
+
+string url = Model.Content.GetPropertyValue<string>("redirectURL");
+
+Response.Redirect(url);
+	
+}	
+
