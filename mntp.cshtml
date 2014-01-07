@@ -1,0 +1,66 @@
+@*
+	----- MNTP -----
+*@
+	@if (homepage.HasProperty("headerNavigation")) {
+		<ul class="headerNavigation">
+			@foreach (var item in Umbraco.TypedContent(homepage.GetPropertyValue("headerNavigation").ToString().Split(','))) {
+				if (item != null)
+				{
+				<li><a href="@item.NiceUrl()">@Html.Raw(@item.GetPropertyValue("pageTitle"))</a></li>
+				}
+			}
+		</ul>
+	}					
+
+
+
+
+
+
+@*
+	----- MNTP - Slideshow -----
+*@
+
+	@{
+		var meetUsNodeIds = Model.Content.GetPropertyValue("meetUsSlider", true).ToString().Split(',');
+		List<IPublishedContent> meetUsSlides = new List<IPublishedContent>();
+		
+		foreach (var nodeId in meetUsNodeIds)
+		{
+			if (!String.IsNullOrEmpty(nodeId))
+			{
+				var publishedContent = Umbraco.NiceUrl(Convert.ToInt32(nodeId));
+				if (!String.IsNullOrEmpty(publishedContent) && publishedContent != "#")
+				{
+					meetUsSlides.Add(Umbraco.TypedContent(nodeId));
+				}
+			}
+		}
+	}
+	
+	@foreach (var slide in meetUsSlides) 
+	{
+					
+        	<div class="rsContent">
+					
+			@if (@slide.GetPropertyValue("image") != string.Empty)
+			{
+				var mediaItem = Umbraco.Media(@slide.GetPropertyValue("image"));
+				<img class="rsImg" src="@(mediaItem.Url)" alt="@mediaItem.Name" />	
+			}
+			
+			<div class="infoBlock infoBlockText rsABlock" data-fade-effect="" data-move-offset="50" data-move-effect="bottom" data-speed="1500">
+							
+				@foreach (var item in Umbraco.TypedContent(slide.GetPropertyValue("link").ToString().Split(',')))
+					{
+						if (item != null)
+						{
+						<h4><a href="@item.NiceUrl()" title="@item.Name">@Html.Raw(slide.GetPropertyValue("title"))</a></h4>
+						}
+					}	
+				<p>@Html.Raw(slide.GetPropertyValue("text"))</p>
+
+			</div>
+         	</div>							
+	}
+	
