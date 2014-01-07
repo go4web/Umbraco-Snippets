@@ -1,3 +1,4 @@
+
 @*
 	----- Language -----
 *@
@@ -19,19 +20,32 @@
 *@
 
 	@if(Model.Content.GetPropertyValue<bool>("showImportantNotice")) {
-	<div class="panel">
-		<div class="panelBackground light gradient">
-			<div class="row">
-				<div class="large-9 small-8 columns">
-					@Html.Raw(Model.Content.GetPropertyValue<string>("importantNotice"))
-				</div>
-				<div class="large-3 small-4 columns importantIcon">
-					<span aria-hidden="true" class="icon-info"></span>
-				</div>
-			</div>			
-		</div>	
-	</div>
+		<div class="panel">
+			<div class="panelBackground light gradient">
+				<div class="row">
+					<div class="large-9 small-8 columns">
+						@Html.Raw(Model.Content.GetPropertyValue<string>("importantNotice"))
+					</div>
+					<div class="large-3 small-4 columns importantIcon">
+						<span aria-hidden="true" class="icon-info"></span>
+					</div>
+				</div>			
+			</div>	
+		</div>
 	}
+
+
+
+	@if(!string.IsNullOrWhiteSpace(Model.MetaDescription))
+	{
+	    <meta name="description" content="@Model.MetaDescription" />
+	}
+	 
+	@if(!string.IsNullOrWhiteSpace(Model.MetaKeywords))
+	{
+	    <meta name="keywords" content="@Model.MetaKeywords" />
+	}
+	
 
 
 
