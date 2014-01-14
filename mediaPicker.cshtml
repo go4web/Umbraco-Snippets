@@ -1,0 +1,5 @@
+@if (Model.Content.GetPropertyValue("topImage") != string.Empty)
+{
+	var mediaItem = Umbraco.Media(@Model.Content.GetPropertyValue("topImage"));
+	<img src="@mediaItem.Url" alt="@mediaItem.Name" />
+}
