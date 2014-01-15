@@ -1,0 +1,31 @@
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+
+
+@if (Model.Content.GetPropertyValue<int>("topImage") != 0)
+{
+	var mediaItem = Umbraco.Media(@Model.Content.GetPropertyValue("topImage"));
+
+	<div class="topImage" style="background-image:url('@mediaItem.Url');"></div>	
+}
+	
+<div class="row mainCoontent">
+	<div class="large-8 large-centered columns">
+		<h1>@Umbraco.Field("pageTitle")</h1>
+		<span class="border"></span>
+        @Umbraco.Field("bodyText")
+	</div>	
+</div>	
+
+
+@section head {
+	
+}
+
+@section scripts {
+	
+}
+
+
