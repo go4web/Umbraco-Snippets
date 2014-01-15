@@ -1,0 +1,113 @@
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var homepage = Model.Content.AncestorOrSelf(1);
+}
+ 
+<!DOCTYPE html>
+<!--[if IE 8]> 	<html class="no-js lt-ie9" lang="da" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="da" > <!--<![endif]-->
+ 
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  	
+	<title>@Model.Content.GetPropertyValue("title")</title>
+	
+	<meta name="description" content="@Model.Content.GetPropertyValue("metaDescription")" />
+	<meta name="keywords" content="@Model.Content.GetPropertyValue("metaKeywords")" />
+	
+	<link rel="icon" href="/images/favicon.png" type="image/png" />
+	
+	<link rel="stylesheet" href="/css/foundation.min.css" />
+	<link rel="stylesheet" href="/css/app.css" />
+	
+  <script src="/scripts/modernizr.js"></script>
+  
+  @RenderSection("head", false)
+
+</head>
+<body>
+	
+    <section class="headerTop">
+        <div class="row">
+            <div class="large-4 columns">
+                <p><span class="icon-phone"></span> 43 73 73 95  &nbsp; &nbsp; &nbsp; <span class="icon-envelope-alt"></span> <a href="mailto:post@tempobaadsalg.dk" title="send en mail">post@tempobaadsalg.dk</a></p>
+            </div>
+		    <div class="large-8 columns">	
+		
+			    @if (homepage.HasProperty("topNavigation")) {
+					<ul class="topNavigation">
+						@foreach (var item in Umbraco.TypedContent(homepage.GetPropertyValue("topNavigation").ToString().Split(','))) {
+							if (item != null)
+							{
+								<li><a href="@item.NiceUrl()" title="@Html.Raw(@item.GetPropertyValue("pageTitle"))">@Html.Raw(@item.GetPropertyValue("pageTitle"))</a></li>
+							}
+						}
+					</ul>
+			    } 	
+			
+		    </div>
+	    </div>
+
+    </section>
+    <header>
+
+	    <div class="row">
+		    <div class="large-4 columns logo">
+			    <a href="/" title="Gå til forsiden"><img src="/images/logo.png" width="217" height="54" /></a>
+		    </div>
+
+		    <nav class="large-8 columns">
+
+          <span class="icon-reorder" id="openNavigation"></span>
+
+			    @{Html.RenderPartial( 
+			    "NavIt", 
+			    Model.Content, 
+			    new ViewDataDictionary(this.ViewData) { 
+			    { "maxLevel", 2 }, 
+			    { "allExpanded", false }, 
+			    { "skipHome", true }, 
+			    { "mainUlCssClass", "navigation" }				
+			    } 
+			    );}	
+		    </nav>
+	    </div>
+			
+    </header>	
+	
+	<section class="page">
+		@RenderBody()
+	</section>
+		
+    <footer>
+	    <div class="row">		
+		    <div class="large-12 columns">			
+                <address>@Html.Raw(homepage.GetPropertyValue<string>("address"))</address>
+		    </div>
+	    </div>    
+    </footer>
+ 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	  <script src="/scripts/foundation.min.js"></script>	
+	  <script src="/scripts/flexslider.js"></script>			
+    <script src="/scripts/prettyphoto.js"></script>
+    <script src="/scripts/app.js"></script>
+    @RenderSection("scripts", false)
+        
+    <!--[if lt IE 9]>
+		   <link rel="stylesheet" href="/css/ie8.css" />
+	  <![endif]-->
+        
+        <!-- Google Analytics -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>
