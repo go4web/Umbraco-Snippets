@@ -3,3 +3,21 @@
 	var mediaItem = Umbraco.Media(@Model.Content.GetPropertyValue("topImage"));
 	<img src="@mediaItem.Url" alt="@mediaItem.Name" />
 }
+
+
+// Umbraco 7
+
+@if (!String.IsNullOrEmpty(Umbraco.Field("img").ToString()))
+{
+
+    var imgUrl = Umbraco.Media(CurrentPage.img);
+                                
+    <img class="b-lazy img-responsive small-hero" 
+        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        data-src-small="@imgUrl.Url"
+        data-src-large="@imgUrl.Url"
+        alt="@CurrentPage.GetPropertyValue("title")"
+    />
+    <noscript><img src="@imgUrl.Url" class="img-responsive small-hero" alt="@CurrentPage.title")" /></noscript>
+    
+}
