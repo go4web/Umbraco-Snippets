@@ -1,4 +1,44 @@
 @*
+	----- Document type in view -----
+*@
+
+@if (Model.Content.DocumentTypeAlias == "Newspage")
+{
+    var parent = CurrentPage.Up(1);
+    <div class="news-details">
+        <div class="date">@Umbraco.Field("pubDate", formatAsDate: true)</div>
+        <a href="@parent.Url" title="@library.GetDictionaryItem("GoToNewsOverview")" class="pull-right">@library.GetDictionaryItem("GoToNewsOverview")</a>
+    </div>
+}
+
+
+@*
+	----- Current page -----
+*@
+
+<h3>@CurrentPage.infoTitle</h3>
+@Html.Raw(CurrentPage.infoText)
+
+
+@*
+	----- Partials -----
+*@
+
+@Html.Partial("Header/ShopHeader")
+
+
+@*
+	----- Render -----
+*@
+
+@RenderBody()
+
+@RenderSection("scripts", false)
+
+@section scripts { }
+
+
+@*
 	----- Date -----
 *@
 
