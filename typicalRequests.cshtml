@@ -1,3 +1,6 @@
+var img = teaser.HasValue("img") ? Umbraco.Media(teaser.GetPropertyValue("img")).GetCropUrl("Single Teaser") : "/images/fallback-225x140.gif";
+
+
 @*
 	----- Document type in view -----
 *@
