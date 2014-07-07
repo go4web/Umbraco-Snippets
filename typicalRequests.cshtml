@@ -44,8 +44,9 @@ var img = teaser.HasValue("img") ? Umbraco.Media(teaser.GetPropertyValue("img"))
 @*
 	----- Date -----
 *@
-
-	@Convert.ToDateTime(item.GetPropertyValue("newsDate")).ToString("dd mm yy")
+        @node.createDate.ToString("MMMM d, yyyy")
+        
+ 	@Convert.ToDateTime(item.GetPropertyValue("newsDate")).ToString("dd mm yy")
 
 @*
 	----- Language -----
