@@ -14,9 +14,17 @@
   	
 	<title>@Model.Content.GetPropertyValue("title")</title>
 	
-	<meta name="description" content="@Model.Content.GetPropertyValue("metaDescription")" />
-	<meta name="keywords" content="@Model.Content.GetPropertyValue("metaKeywords")" />
+	@if(!string.IsNullOrWhiteSpace(Model.Content.GetPropertyValue("metaDescription")))
+	{
+	    <meta name="description" content="@Model.Content.GetPropertyValue("metaDescription")" />
+	}
+	 
+	@if(!string.IsNullOrWhiteSpace(Model.Content.GetPropertyValue("metaKeywords")))
+	{
+	    <meta name="keywords" content="@Model.Content.GetPropertyValue("metaKeywords")" />
+	}
 	
+
 	<link rel="icon" href="/images/favicon.png" type="image/png" />
 	
 	<link rel="stylesheet" href="/css/foundation.min.css" />
