@@ -4,6 +4,21 @@
 }
 
 
+@if (Model.Content.DocumentTypeAlias == "Contact") {
+	@section footer {
+		@Html.Partial("Footer-map")	
+	}
+
+} else {
+	
+	@section footer {
+		@Html.Partial("Footer-simple")	
+	}
+}
+
+
+
+
 @if (Model.Content.GetPropertyValue<int>("topImage") != 0)
 {
 	var mediaItem = Umbraco.Media(@Model.Content.GetPropertyValue("topImage"));
